@@ -57,6 +57,7 @@ Robin Blondeau
 Maël Cunin
 Guillem JIMENEZ
 - Ferdinand Pitré
+Thomas Vilatte
 
 ## Credits
 
