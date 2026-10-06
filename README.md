@@ -47,6 +47,7 @@ show the resulting state.
 sprites are embedded, so no separate asset download is needed.
 
 ## Contributors
+
 Guillem JIMENEZ
 
 ## Credits
