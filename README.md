@@ -56,6 +56,8 @@ Andrei Glavan
 Henry Chollet
 Robin Blondeau
 Maël Cunin
+- Ferdinand Pitré
+
 ## Credits
 
 Sprites: [Kenney Tiny Dungeon](https://kenney.nl/assets/tiny-dungeon), CC0.
