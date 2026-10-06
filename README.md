@@ -1,3 +1,6 @@
+
+
+
 # Gridworld starter
 
 A small Python grid-world project built during class. The code contains skeletons
@@ -49,6 +52,12 @@ sprites are embedded, so no separate asset download is needed.
 ## Contributors
 
 Andrei Glavan
+Henry Chollet
+Robin Blondeau
+Maël Cunin
+Guillem JIMENEZ
+Ferdinand Pitré
+Thomas Vilatte
 
 ## Credits
 
