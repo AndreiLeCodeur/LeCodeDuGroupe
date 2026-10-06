@@ -56,7 +56,7 @@ Henry Chollet
 Robin Blondeau
 Maël Cunin
 Guillem JIMENEZ
-- Ferdinand Pitré
+Ferdinand Pitré
 Thomas Vilatte
 
 ## Credits
