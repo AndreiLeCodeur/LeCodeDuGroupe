@@ -1,0 +1,69 @@
+{
+  "level": {
+    "id": "n0",
+    "width": 7,
+    "height": 5,
+    "tiles": [
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "wall",
+        "floor",
+        "exit",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "wall",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ]
+    ]
+  },
+  "entities": [
+    {
+      "id": "player-1",
+      "kind": "player",
+      "x": 1,
+      "y": 1,
+      "appearance": "player"
+    }
+  ],
+  "player_id": "player-1",
+  "status": "playing",
+  "turn": 0,
+  "message": "",
+  "interaction": null,
+  "extras": {}
+}
