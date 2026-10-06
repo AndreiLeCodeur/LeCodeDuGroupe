@@ -1,4 +1,4 @@
-Henry Chollet
+
 
 
 # Gridworld starter
@@ -53,6 +53,7 @@ sprites are embedded, so no separate asset download is needed.
 
 Andrei Glavan
 
+Henry Chollet
 ## Credits
 
 Sprites: [Kenney Tiny Dungeon](https://kenney.nl/assets/tiny-dungeon), CC0.
