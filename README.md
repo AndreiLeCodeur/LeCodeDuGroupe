@@ -48,6 +48,8 @@ sprites are embedded, so no separate asset download is needed.
 
 ## Contributors
 
+Andrei Glavan
+
 ## Credits
 
 Sprites: [Kenney Tiny Dungeon](https://kenney.nl/assets/tiny-dungeon), CC0.
