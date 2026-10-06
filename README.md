@@ -1,3 +1,6 @@
+Henry Chollet
+
+
 # Gridworld starter
 
 A small Python grid-world project built during class. The code contains skeletons
