@@ -1,4 +1,4 @@
-Henry Chollet
+
 
 
 # Gridworld starter
@@ -50,7 +50,7 @@ show the resulting state.
 sprites are embedded, so no separate asset download is needed.
 
 ## Contributors
-
+Henry Chollet
 ## Credits
 
 Sprites: [Kenney Tiny Dungeon](https://kenney.nl/assets/tiny-dungeon), CC0.
