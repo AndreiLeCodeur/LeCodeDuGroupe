@@ -54,6 +54,7 @@ sprites are embedded, so no separate asset download is needed.
 Andrei Glavan
 
 Henry Chollet
+Robin Blondeau
 ## Credits
 
 Sprites: [Kenney Tiny Dungeon](https://kenney.nl/assets/tiny-dungeon), CC0.
