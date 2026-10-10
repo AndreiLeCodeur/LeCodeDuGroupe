@@ -8,6 +8,7 @@ class Engine:
 
     def __init__(self, level: Level, controller: Controller, renderer: Renderer) -> None:
         raise NotImplementedError("initialize the game without rendering or starting the view")
+        
 
     def get_action(self) -> Action | None:
         raise NotImplementedError("delegate to the controller")
