@@ -25,6 +25,46 @@ class Engine:
 
     def apply_action(self, action: Action) -> None:
         ...
+        move_map = {
+            "north": (0, -1),
+            "east": (1, 0),
+            "south": (0, 1),
+            "west": (-1, 0),
+            "wait": (0, 0),
+            "quit": (0, 0),
+        }
+
+        if action not in move_map:
+            raise ValueError(f"Action inconnue: {action!r}")
+
+        if action == "quit":
+            self.status = "lost"
+            self.message = "You quit the game."
+            return
+
+        if action == "wait":
+            self.turn += 1
+            self.message = "You wait."
+            return
+
+        x, y = self.player.get_position()
+        dx, dy = move_map[action]
+        next_x = x + dx
+        next_y = y + dy
+
+        if not self.level.is_walkable(next_x, next_y):
+            self.message = "Blocked."
+            return
+
+        self.player.move_to(next_x, next_y)
+        self.turn += 1
+
+        if self.level.is_exit(next_x, next_y):
+            self.status = "won"
+            self.message = "Victory!"
+        else:
+            self.message = "You moved."
+
 
     def get_state(self) -> JsonState:
         return {
