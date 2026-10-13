@@ -1,4 +1,5 @@
-from gridworld.tile import Tile
+import pytest
+from gridworld.models.tile import Tile
 
 # On teste ici si les dalles sont bien praticables
 def test_floor_is_walkable():

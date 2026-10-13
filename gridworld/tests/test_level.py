@@ -1,4 +1,5 @@
 import pytest
+from pathlib import Path
 from gridworld.models.level import Level, LevelError
 
 def test_load_n0_level():
