@@ -3,4 +3,7 @@ class TerminalInput:
 
     def read_key(self) -> str | None:
         """Use input() followed by Enter; return :quit on EOF or interruption."""
-        raise NotImplementedError("read a command from the terminal")
+        try:
+            return input()
+        except (EOFError, KeyboardInterrupt):
+            return ":quit"

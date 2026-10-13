@@ -27,8 +27,7 @@ The preview displays a fixed map. Close it with Escape or the window close
 button. The playable game is not implemented yet; unfinished methods raise
 `NotImplementedError`.
 
-When opening a pull request, select your group's fork as the base repository.
-
+When opening a pull request, select your group's fork as the base repository. 
 ## Repository tour
 
 | Path | What you will find |
