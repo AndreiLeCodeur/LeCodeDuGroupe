@@ -1,32 +1,41 @@
 from gridworld.contracts import TileKind
 
-#On définit les types possibles :
-TILE_KINDS = {"floor", "wall", "exit"}
+
+class Tile:
+    """Terrain without player or rendering logic."""
+
+    def __init__(self, kind: TileKind) -> None:
+        raise NotImplementedError("validate and store the tile kind")
+
+    def is_walkable(self) -> bool:
+        raise NotImplementedError("a wall tile is not walkable")
+
+    def is_exit(self) -> bool:
+        raise NotImplementedError("identify the exit")
+
+    def to_state(self) -> TileKind:
+        raise NotImplementedError("expose the terrain kind")
+
+from gridworld.contracts import TileKind
 
 
 class Tile:
+    """Terrain without player or rendering logic."""
 
-# Ici on vérifie que le type est bien dans la liste 
     def __init__(self, kind: TileKind) -> None:
-        if kind not in TILE_KINDS :
-            raise ValueError("type de case inconnue")
-        self.kind = kind # Pour bien stocker le type !
+        # On regarde si l'on est sur un case d'un type acceptable
+        if kind not in ("floor", "wall", "exit"):
+            raise ValueError(f"Type de case inconnu : {kind}")
+        self.kind: TileKind = kind
 
+    def is_walkable(self) -> bool:
+        # Les murs bloquent le passage, le sol et la sortie sont franchissables
+        return self.kind != "wall"
 
-# Ici on renvoie True seulement si ce n'est pas un mur, si c'est un mur on renvoi false
-    def is_walkable(self) -> bool: 
-        if self.kind == "wall" : 
-            return False 
-        else : 
-            return True
-
-
-# Ici on vérifie que le type est bien une exit
     def is_exit(self) -> bool:
-        if self.kind == "exit" : 
-            return True 
-        else : 
-            return False
+        # Renvoie True uniquement s'il s'agit d'une case de sortie
+        return self.kind == "exit"
 
     def to_state(self) -> TileKind:
+        # Expose le type de terrain
         return self.kind
