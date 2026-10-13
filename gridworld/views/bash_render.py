@@ -13,7 +13,48 @@ class BashRender:
         raise NotImplementedError("start the view; a no-op is acceptable")
 
     def state_to_string(self, json_state: JsonState) -> str:
-        raise NotImplementedError("floor=., wall=#, exit=E; entities in order (player=P, unknown=?); turn and message, without print")
+        #raise NotImplementedError("floor=., wall=#, exit=E; entities in order (player=P, unknown=?); turn and message, without print")
+
+        #convertir le terrain
+        tile_map = {
+            "floor": ".",
+            "wall": "#",
+            "exit": "E",
+        }
+
+
+        #récupérer data
+        grid_data = json_state.get("grid", {})
+        width = grid_data.get("width", 0)
+        height = grid_data.get("height", 0)
+        tiles_input = grid_data.get("tiles", [])
+
+        #construction de la grille
+        grid = [
+            [tile_map.get(tile, ".") for tile in row]
+            for row in tiles_input
+        ]
+
+        #superposition des entités
+        entities = json_state.get("entities", [])
+        for entity in entities:
+            x = entity.get("x")
+            y = entity.get("y")
+            entity_type = entity.get("type")
+
+            char = "P" if entity_type == "player" else "?"
+
+            if 0 <= y < height and 0 <= x < width:
+                grid[y][x] = char
+
+        board_lines = ["".join(row) for row in grid]
+        board_str = "\n".join(board_lines)
+
+        #ajout du tour et du message
+        turn = json_state.get("turn", 0)
+        message = json_state.get("message", "")
+
+        return f"{board_str}\nTurn: {turn}\n{message}"        
 
     def refresh(self, text: str) -> None:
         """SUPPLIED: replace the ANSI terminal display without adding print calls.
