@@ -2,5 +2,7 @@ gridworld/__pycache__/
 gridworld/controllers/__pycache__/
 gridworld/models/__pycache__/
 gridworld/views/__pycache__/
+__pycache__/
 
 ./.venv
+.vscode/
