@@ -32,7 +32,6 @@ class Controller:
         "Escape" : "quit"
 
         }
-        raise NotImplementedError("store the input source")
 
     def key_to_action(self, key: str) -> Action | None:
         if key is None: 

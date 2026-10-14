@@ -4,8 +4,10 @@ import argparse
 from gridworld.models.level import Level 
 from gridworld.engine import Engine
 from gridworld.controllers.controller import Controller
-from gridworld.controllers.terminal_input import BashRender , TerminalInput #voir mael pour bashrender
-from gridworld.views.pygame_render import PygameRender, PygameInput
+from gridworld.controllers.terminal_input import TerminalInput
+from gridworld.controllers.pygame_input import PygameInput
+from gridworld.views.bash_render import BashRender #voir mael pour bashrender
+from gridworld.views.pygame_render import PygameRender
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Grid-world — application assembly to implement in S0")
