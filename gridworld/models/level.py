@@ -7,6 +7,7 @@ from pathlib import Path
 
 class LevelError(ValueError):
     """JSON loading error or violation of the map contract."""
+    pass
 
 class Level(): # ce qu'on a modifié
     """Terrain grid loaded from levels/n0.json."""
@@ -26,12 +27,12 @@ class Level(): # ce qu'on a modifié
             symbols = {"#": "wall", ".": "floor"} #traduction des caractères en types de case
             self._grid = [] # la grille entière que l'on cartographie avec tile
             for i in range (len(raw_tiles)) :
-                if len(raw_tiles[i])!= self.width :
+                if len(raw_tiles[i]) != self.width :
                     raise LevelError (f"La largeur de la {i}e ligne ne correspond pas ")
-
-                tile_row = [] #on veut reconstruire la ligne sous forlme d'objets de tile
-                for j in  range (len(raw_tiles[i])):
-                    kind = "exit" if (j, i) == (exit_x, exit_y) else symbols.get(raw_tiles[i][j], raw_tiles[i][j])
+                
+                tile_row = [] #on veut reconstruire la ligne sous forme d'objets de tile
+                for j in range (len(raw_tiles[i])):
+                    kind = raw_tiles[i][j]
                     try:
                         tile_row.append(Tile(kind))
                     except ValueError as error:
@@ -52,9 +53,8 @@ class Level(): # ce qu'on a modifié
     @classmethod
     def load(cls, path: str) -> "Level":
         try : 
-            f = open (path, "r", encoding="utf-8")
-            data = json.load(f)
-            f.close()  # On ferme le fichier et on crée l'objet level avec les bonnes données
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
             level_obj = cls(data)
             return level_obj
         except (FileNotFoundError, json.JSONDecodeError, OSError) as e: # Si le fichier n'existe pas ou si le JSON est mal formé
@@ -94,16 +94,17 @@ class Level(): # ce qu'on a modifié
         raw_tiles = []
         
         for i in range(len(self._grid)):
-            ligne_texte = []
+            ligne_texte = ""
             for j in range(len(self._grid[i])):
                 tile_objet = self._grid[i][j]
                 type_texte = tile_objet.to_state()
-                ligne_texte.append(type_texte)
+                ligne_texte += type_texte
             
             raw_tiles.append(ligne_texte)
         
         # On construit le dictionnaire de retour à la main
-        res = {"id": self.id,"width": self.width, "height": self.height,"tiles": raw_tiles}
+        res = {"id": self.id, "grid": raw_tiles, "start": {"x": self.start_pos[0], "y": self.start_pos[1]}}
+        if self.exit_pos:
+            res["exit"] = {"x": self.exit_pos[0], "y": self.exit_pos[1]}
         
         return res
-      
