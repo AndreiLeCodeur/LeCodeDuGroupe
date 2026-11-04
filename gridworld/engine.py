@@ -24,7 +24,6 @@ class Engine:
         return self.controller.get_action()
 
     def apply_action(self, action: Action) -> None:
-        ...
         move_map = {
             "north": (0, -1),
             "east": (1, 0),
@@ -34,6 +33,7 @@ class Engine:
             "quit": (0, 0),
         }
 
+        # Une action hors du vocabulaire autorisé lève ValueError avant toute modification
         if action not in move_map:
             raise ValueError(f"Action inconnue: {action!r}")
 
@@ -52,19 +52,20 @@ class Engine:
         next_x = x + dx
         next_y = y + dy
 
+        # Chaque tentative de déplacement, y compris un déplacement bloqué, consomme un tour
+        self.turn += 1
+
         if not self.level.is_walkable(next_x, next_y):
             self.message = "Blocked."
             return
 
         self.player.move_to(next_x, next_y)
-        self.turn += 1
 
         if self.level.is_exit(next_x, next_y):
             self.status = "won"
             self.message = "Victory!"
         else:
             self.message = "You moved."
-
 
     def get_state(self) -> JsonState:
         return {
