@@ -4,8 +4,8 @@ from gridworld.models.level import Level, LevelError
 
 def test_load_n0_level():
     # N0 : dimensions 7x5, départ (1,1), sortie (5,1)
-    current_dir = Path(__file__).parent
-    level_path = current_dir / "levels" / "n0.json"
+    repo_root = Path(__file__).parent.parent.parent
+    level_path = repo_root / "levels" / "n0.json"
     level = Level.load(level_path)
     assert level.width == 7
     assert level.height == 5

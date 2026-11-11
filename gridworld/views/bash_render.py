@@ -6,55 +6,33 @@ from gridworld.contracts import JsonState
 class BashRender:
     """To complete. Only refresh is supplied and must remain unchanged."""
 
+    TILE_CHARS = {"floor": ".", "wall": "#", "exit": "E"}
+    ENTITY_CHARS = {"player": "P"}
+
     def __init__(self) -> None:
-        raise NotImplementedError("initialize the terminal view")
+        self._closed = False
 
     def start(self) -> None:
-        raise NotImplementedError("start the view; a no-op is acceptable")
+        # rien à initialiser pour le terminal
+        self._closed = False
 
     def state_to_string(self, json_state: JsonState) -> str:
-        #raise NotImplementedError("floor=., wall=#, exit=E; entities in order (player=P, unknown=?); turn and message, without print")
+        """floor=., wall=#, exit=E; entities in order (player=P, unknown=?); turn and message.
 
-        #convertir le terrain
-        tile_map = {
-            "floor": ".",
-            "wall": "#",
-            "exit": "E",
-        }
+        Ne modifie pas json_state et n'appelle pas print.
+        """
+        level = json_state["level"]
+        # copie locale de la grille : on ne touche jamais au dictionnaire reçu
+        grid = [[self.TILE_CHARS.get(tile, "?") for tile in row] for row in level["tiles"]]
 
+        # superposition des entités dans l'ordre : la dernière gagne (le joueur est en dernier)
+        for entity in json_state["entities"]:
+            x, y = entity["x"], entity["y"]
+            if 0 <= y < len(grid) and 0 <= x < len(grid[y]):
+                grid[y][x] = self.ENTITY_CHARS.get(entity["appearance"], "?")
 
-        #récupérer data
-        grid_data = json_state.get("grid", {})
-        width = grid_data.get("width", 0)
-        height = grid_data.get("height", 0)
-        tiles_input = grid_data.get("tiles", [])
-
-        #construction de la grille
-        grid = [
-            [tile_map.get(tile, ".") for tile in row]
-            for row in tiles_input
-        ]
-
-        #superposition des entités
-        entities = json_state.get("entities", [])
-        for entity in entities:
-            x = entity.get("x")
-            y = entity.get("y")
-            entity_type = entity.get("type")
-
-            char = "P" if entity_type == "player" else "?"
-
-            if 0 <= y < height and 0 <= x < width:
-                grid[y][x] = char
-
-        board_lines = ["".join(row) for row in grid]
-        board_str = "\n".join(board_lines)
-
-        #ajout du tour et du message
-        turn = json_state.get("turn", 0)
-        message = json_state.get("message", "")
-
-        return f"{board_str}\nTurn: {turn}\n{message}"        
+        board = "\n".join("".join(row) for row in grid)
+        return f"{board}\nTurn: {json_state['turn']}\n{json_state['message']}"
 
     def refresh(self, text: str) -> None:
         """SUPPLIED: replace the ANSI terminal display without adding print calls.
@@ -69,10 +47,8 @@ class BashRender:
         sys.stdout.flush()
 
     def update_render(self, json_state: JsonState) -> None:
-        #raise NotImplementedError("call state_to_string then refresh, once each")
-        rendered_text = self.state_to_string(json_state)
-        self.refresh(rendered_text)
+        self.refresh(self.state_to_string(json_state))
 
     def close(self) -> None:
-        #raise NotImplementedError("close idempotently; a no-op is acceptable")
+        # idempotent : on peut appeler close plusieurs fois sans erreur
         self._closed = True

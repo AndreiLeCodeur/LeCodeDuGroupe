@@ -34,10 +34,11 @@ def test_level_data_is_not_changed_by_other_tests(level_data):
 
 
 def test_scripted_game_reaches_exit(make_game, renderer):
-    game = make_game(["d", "d"])
+    # run() loops until quit (spec: "loop until quit"), even after a victory
+    game = make_game(["d", "d", ":quit"])
     game.run()
     assert game.status == "won"
-    # initial state + one state per move
+    # initial state + one state per move (quit is not rendered)
     assert [state["turn"] for state in renderer.states] == [0, 1, 2]
     assert renderer.states[-1]["status"] == "won"
 

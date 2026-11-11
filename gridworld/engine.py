@@ -1,3 +1,5 @@
+import copy
+
 from gridworld.contracts import Action, JsonState, Renderer
 from gridworld.controllers.controller import Controller
 from gridworld.models.level import Level
@@ -24,7 +26,6 @@ class Engine:
         return self.controller.get_action()
 
     def apply_action(self, action: Action) -> None:
-        ...
         move_map = {
             "north": (0, -1),
             "east": (1, 0),
@@ -36,6 +37,10 @@ class Engine:
 
         if action not in move_map:
             raise ValueError(f"Action inconnue: {action!r}")
+
+        # Partie terminée (victoire ou abandon) : plus aucune action ne modifie l'état
+        if self.status != "playing":
+            return
 
         if action == "quit":
             self.status = "lost"
@@ -52,12 +57,14 @@ class Engine:
         next_x = x + dx
         next_y = y + dy
 
+        # Chaque tentative de déplacement, y compris bloquée, consomme un tour
+        self.turn += 1
+
         if not self.level.is_walkable(next_x, next_y):
             self.message = "Blocked."
             return
 
         self.player.move_to(next_x, next_y)
-        self.turn += 1
 
         if self.level.is_exit(next_x, next_y):
             self.status = "won"
@@ -67,7 +74,8 @@ class Engine:
 
 
     def get_state(self) -> JsonState:
-        return {
+        # deepcopy : l'appelant ne doit pas pouvoir modifier l'état interne (extras imbriqués...)
+        return copy.deepcopy({
             "level": self.level.to_state(),
             "entities": [self.player.to_state()],
             "player_id": "player-1",
@@ -76,14 +84,15 @@ class Engine:
             "message": self.message,
             "interaction": self.interaction,
             "extras": self.extras,
-        }
+        })
 
     def render(self, json_state: JsonState) -> None:
         self.renderer.update_render(json_state)
 
     def run(self) -> None:
+        # Rendu initial puis boucle jusqu'à "quit" ; après la victoire les actions sont ignorées
         self.render(self.get_state())
-        while self.status == "playing":
+        while True:
             action = self.get_action()
             if action is None:
                 continue

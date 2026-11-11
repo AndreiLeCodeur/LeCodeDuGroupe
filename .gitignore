@@ -1,8 +1,10 @@
-gridworld/__pycache__/
-gridworld/controllers/__pycache__/
-gridworld/models/__pycache__/
-gridworld/views/__pycache__/
+# Python bytecode (any folder)
 __pycache__/
+*.py[cod]
 
-./.venv
+# Tools
+.pytest_cache/
+.venv/
+
+# Editors
 .vscode/
