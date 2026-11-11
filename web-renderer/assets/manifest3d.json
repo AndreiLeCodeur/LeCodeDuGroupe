@@ -1,0 +1,8 @@
+{
+  "floor": {"model": "floor.glb"},
+  "wall": {"model": "wall.glb"},
+  "player.idle": {"model": "character-human.glb", "height": 0.95, "animation": "idle", "effect": "hero"},
+  "potion.idle": {"model": "potion.glb", "height": 0.48, "effect": "float"},
+  "exit.idle": {"model": "stairs.glb", "height": 0.68, "effect": "portal"},
+  "sphinx": {"procedural": "sphinx", "height": 1.05}
+}

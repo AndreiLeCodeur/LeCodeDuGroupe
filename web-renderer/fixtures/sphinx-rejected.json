@@ -1,0 +1,64 @@
+{
+  "level": {
+    "id": "sphinx",
+    "width": 7,
+    "height": 3,
+    "tiles": [
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "exit",
+        "wall"
+      ],
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ]
+    ]
+  },
+  "entities": [
+    {
+      "id": "player-1",
+      "kind": "player",
+      "x": 2,
+      "y": 1,
+      "appearance": "player"
+    },
+    {
+      "id": "sphinx-1",
+      "kind": "sphinx",
+      "x": 3,
+      "y": 1,
+      "appearance": "sphinx"
+    }
+  ],
+  "player_id": "player-1",
+  "status": "playing",
+  "turn": 2,
+  "message": "",
+  "interaction": {
+    "id": "example-interaction-1",
+    "actor_id": "sphinx-1",
+    "status": "rejected",
+    "question": "What repeats your words without having a voice of its own?",
+    "message": "That answer was not accepted. Try again."
+  },
+  "extras": {}
+}

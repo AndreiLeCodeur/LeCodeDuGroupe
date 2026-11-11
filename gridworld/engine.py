@@ -16,6 +16,8 @@ class Engine:
         x, y = level.get_start()
         self.player = Player(x, y)
 
+        # False once the player quits; the web server refuses actions afterwards
+        self.running = True
         self.status = "playing"
         self.turn = 0
         self.message = ""
@@ -37,6 +39,10 @@ class Engine:
 
         if action not in move_map:
             raise ValueError(f"Action inconnue: {action!r}")
+
+        # Quitter ferme la session, même après une victoire
+        if action == "quit":
+            self.running = False
 
         # Partie terminée (victoire ou abandon) : plus aucune action ne modifie l'état
         if self.status != "playing":
@@ -97,6 +103,7 @@ class Engine:
             if action is None:
                 continue
             if action == "quit":
+                self.running = False
                 break
             self.apply_action(action)
             self.render(self.get_state())
