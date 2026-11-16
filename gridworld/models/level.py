@@ -61,6 +61,12 @@ class Level:
         self.start_pos = (start_x, start_y)
         self.exit_pos = (exit_x, exit_y)
 
+        # marqueur optionnel "sphinx": true -> un sphinx garde la sortie (même case, pas d'autres coordonnées)
+        sphinx = data.get("sphinx", False)
+        if not isinstance(sphinx, bool):
+            raise LevelError("sphinx doit être un booléen")
+        self.sphinx_position = self.exit_pos if sphinx else None
+
     @classmethod
     def load(cls, path: str) -> "Level":
         try:
@@ -88,6 +94,13 @@ class Level:
 
     def is_exit(self, x: int, y: int) -> bool:
         return self._in_bounds(x, y) and self._grid[y][x].is_exit()
+
+    def get_sphinx(self) -> dict | None:
+        """Return a public entity on the exit, or None for a normal map."""
+        if self.sphinx_position is None:
+            return None
+        x, y = self.sphinx_position
+        return {"id": "sphinx-1", "kind": "sphinx", "x": x, "y": y, "appearance": "sphinx"}
 
     def to_state(self) -> LevelState:
         # nouvel état indépendant, au format LevelState (voir contracts.py et initial_state.json)
