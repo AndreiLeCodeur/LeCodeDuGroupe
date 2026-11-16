@@ -10,6 +10,7 @@ def engine():
     mock_level = MagicMock()
     mock_level.get_start.return_value = (0, 0)
     mock_level.to_state.return_value = {"map_data": [1, 2, 3]}
+    mock_level.get_sphinx.return_value = None  # carte sans sphinx
     
     mock_controller = MagicMock()
     mock_renderer = MagicMock()

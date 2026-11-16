@@ -81,9 +81,15 @@ class Engine:
 
     def get_state(self) -> JsonState:
         # deepcopy : l'appelant ne doit pas pouvoir modifier l'état interne (extras imbriqués...)
+        entities = [self.player.to_state()]
+        # le sphinx est une entité publique seulement si la carte en déclare un
+        sphinx = self.level.get_sphinx()
+        if sphinx is not None:
+            entities.append(sphinx)
+
         return copy.deepcopy({
             "level": self.level.to_state(),
-            "entities": [self.player.to_state()],
+            "entities": entities,
             "player_id": "player-1",
             "status": self.status,
             "turn": self.turn,
