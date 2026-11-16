@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c111b">
+  <title>The ruins of Astraea · Gridworld</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main id="game"></main>
+  <details class="connection-settings">
+    <summary>API connection</summary>
+    <form id="connection-form"><label for="api-url">API base URL <span>(leave empty for the same origin)</span></label><div><input id="api-url" name="api" type="url" placeholder="http://127.0.0.1:8000" autocomplete="url"><button type="submit">Connect</button></div><p id="connection-note">The supplied local server can proxy requests to your Python API.</p></form>
+  </details>
+  <p class="demo-note" id="demo-note" hidden>Teacher demo · This sample world runs in the separate Node demo server. <a href="preview.html">Browse state fixtures</a>.</p>
+  <noscript>This renderer needs JavaScript enabled.</noscript>
+</body>
+</html>

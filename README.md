@@ -56,6 +56,29 @@ The test doubles are in [`tests/helpers.py`](tests/helpers.py).
 `ScriptedInput` raises an `AssertionError` if the engine asks for more keys
 than scripted, so a test fails instead of looping forever.
 
+## Play in the browser
+
+The supplied web renderer talks to the engine through a small HTTP API.
+It needs Node.js 22 or later (check with `node --version`).
+
+In a first terminal, from the repository root, start the Python API (port 8000):
+
+```sh
+uv run python -m gridworld.api_render --level levels/n0.json
+```
+
+In a second terminal, from the `web-renderer/` folder, start the renderer (port 8080):
+
+```sh
+npm start -- --api http://127.0.0.1:8000
+```
+
+Open http://127.0.0.1:8080/ and leave "API connection" empty: the renderer
+forwards `/api` requests to Python.
+
+`GET /api/state` only observes the game and never changes it, while
+`POST /api/actions` asks the engine to play one action and returns the new state.
+
 ## Repository tour
 
 | Path | What you will find |

@@ -1,0 +1,8 @@
+{
+  "floor": "floor.png",
+  "wall": "wall.png",
+  "player.idle": "player.png",
+  "potion.idle": "potion.png",
+  "exit.idle": "exit.png",
+  "sphinx": "sphinx.svg"
+}

@@ -1,0 +1,48 @@
+{
+  "level": {
+    "id": "courtyard",
+    "width": 4,
+    "height": 4,
+    "tiles": [
+      [
+        "floor",
+        "floor",
+        "floor",
+        "exit"
+      ],
+      [
+        "floor",
+        "wall",
+        "floor",
+        "floor"
+      ],
+      [
+        "floor",
+        "floor",
+        "floor",
+        "floor"
+      ],
+      [
+        "floor",
+        "floor",
+        "floor",
+        "floor"
+      ]
+    ]
+  },
+  "entities": [
+    {
+      "id": "player-1",
+      "kind": "player",
+      "x": 0,
+      "y": 3,
+      "appearance": "player"
+    }
+  ],
+  "player_id": "player-1",
+  "status": "playing",
+  "turn": 0,
+  "message": "",
+  "interaction": null,
+  "extras": {}
+}
