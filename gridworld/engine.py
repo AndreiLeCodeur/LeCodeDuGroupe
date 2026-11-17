@@ -4,6 +4,7 @@ from gridworld.contracts import Action, JsonState, Renderer
 from gridworld.controllers.controller import Controller
 from gridworld.models.level import Level
 from gridworld.models.player import Player
+from gridworld.web_support import new_interaction
 
 
 class Engine:
@@ -21,6 +22,7 @@ class Engine:
         self.status = "playing"
         self.turn = 0
         self.message = ""
+        self.sphinx = None
         self.interaction = None
         self.extras = {}
 
@@ -43,6 +45,7 @@ class Engine:
         # Quitter ferme la session, même après une victoire
         if action == "quit":
             self.running = False
+            self.interaction = None
 
         # Partie terminée (victoire ou abandon) : plus aucune action ne modifie l'état
         if self.status != "playing":
@@ -51,6 +54,10 @@ class Engine:
         if action == "quit":
             self.status = "lost"
             self.message = "You quit the game."
+            return
+
+        # Pendant un dialogue avec le sphinx, les déplacements et l'attente sont ignorés sans consommer de tour
+        if self.interaction is not None:
             return
 
         if action == "wait":
@@ -63,11 +70,16 @@ class Engine:
         next_x = x + dx
         next_y = y + dy
 
-        # Chaque tentative de déplacement, y compris bloquée, consomme un tour
+        # Chaque tentative de déplacement, y compris bloquée ou déclenchant le sphinx, consomme un tour
         self.turn += 1
 
         if not self.level.is_walkable(next_x, next_y):
             self.message = "Blocked."
+            return
+
+        # Rencontre avec le sphinx qui garde la sortie
+        if self.level.is_exit(next_x, next_y) and self.sphinx is not None:
+            self.start_sphinx_dialogue()
             return
 
         self.player.move_to(next_x, next_y)
@@ -78,6 +90,22 @@ class Engine:
         else:
             self.message = "You moved."
 
+    def start_sphinx_dialogue(self) -> None:
+        """Keep the player in place and publish the cached question."""
+        self.interaction = new_interaction(self.sphinx)
+
+    def apply_sphinx_verdict(self, verdict: dict) -> None:
+        """Apply a validated result without consuming another turn."""
+        if not verdict["correct"]:
+            if self.interaction is not None:
+                self.interaction["status"] = "rejected"
+                self.interaction["message"] = verdict["message"]
+        else:
+            sphinx_entity = self.level.get_sphinx()
+            self.player.move_to(sphinx_entity["x"], sphinx_entity["y"])
+            self.interaction = None
+            self.status = "won"
+            self.message = "Victory!"
 
     def get_state(self) -> JsonState:
         # deepcopy : l'appelant ne doit pas pouvoir modifier l'état interne (extras imbriqués...)
