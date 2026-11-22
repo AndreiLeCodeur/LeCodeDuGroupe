@@ -100,6 +100,25 @@ show the resulting state.
 `PygameRender`, `PygameInput` and `BashRender.refresh` are supplied. The Pygame
 sprites are embedded, so no separate asset download is needed.
 
+## (S3-01) Préparer une vérification locale commune :
+
+### Ce qu'il faut
+- Python 3.12 et `uv` installés.
+- On verouille les dépendances avec `pyproject.toml` et `uv.lock` (qui incluent `pytest` et `flask`).
+
+### Commande de vérification
+Depuis la racine du dépôt :
+
+```bash
+uv sync --locked
+uv run python -m pytest -q
+```
+Cette commande exécute la suite de tests sans saisie clavier interactive, sans ouverture de fenêtre graphique, sans serveur réseau démarré ni appel à un vrai LLM / Ollama (les tests réutilisent les doubles existants, `fake_llm_json` de `gridworld/llm_support.py` et un client Flask en mémoire).
+
+### Règle de réception
+- Vérification exécutée sur push et pull request (branche finale actuelle : `dev`).
+- Revue effectuée et résultat de test vert sur le **dernier état** avant fusion.
+- Archivage uniquement après succès d'un push sur la branche finale (`dev`).
 ## Contributors
 
 Andrei Glavan
