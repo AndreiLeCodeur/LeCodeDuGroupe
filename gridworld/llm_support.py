@@ -21,7 +21,7 @@ def llm_json(prompt, data, kind):
     """Return a validated dictionary, or raise RuntimeError handled by the server."""
     properties = SCHEMAS[kind]
     payload = {
-        "model": "qwen3:4b-instruct-2507-q4_K_M", "stream": False,
+        "model": "qwen2.5:1.5b-instruct-q4_K_M", "stream": False,
         "messages": [{"role": "system", "content": prompt},
                      {"role": "user", "content": json.dumps(data)}],
         "format": {"type": "object", "properties": properties,
