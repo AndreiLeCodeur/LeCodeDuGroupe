@@ -20,6 +20,7 @@ def engine():
 
 # --- 1. Tester les 8 champs et la conversion JSON ---
 def test_get_state_fields_and_json_serializable(engine):
+    assert False, "CI demonstration"
     state = engine.get_state()
     
     # Les 8 clés exactes définies dans ton code
