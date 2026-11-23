@@ -144,4 +144,4 @@ class Engine:
 
 
 def next_turn(turn):
-    return trun + 1
+    return turn + 1
