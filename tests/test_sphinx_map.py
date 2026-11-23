@@ -6,7 +6,7 @@ import pytest
 from gridworld.controllers.controller import Controller
 from gridworld.engine import Engine
 from gridworld.models.level import Level, LevelError
-from helpers import ScriptedInput
+from tests.helpers import ScriptedInput
 
 LEVELS = Path(__file__).parent.parent / "levels"
 

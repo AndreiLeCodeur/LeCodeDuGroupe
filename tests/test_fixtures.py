@@ -1,7 +1,7 @@
 import pytest
 
 from gridworld.contracts import InputSource, Renderer
-from helpers import RecordingRenderer, ScriptedInput
+from tests.helpers import RecordingRenderer, ScriptedInput
 
 
 def test_level_fixture(level):

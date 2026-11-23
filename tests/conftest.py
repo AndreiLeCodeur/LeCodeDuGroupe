@@ -3,7 +3,7 @@ import pytest
 from gridworld.controllers.controller import Controller
 from gridworld.engine import Engine
 from gridworld.models.level import Level
-from helpers import RecordingRenderer, ScriptedInput
+from tests.helpers import RecordingRenderer, ScriptedInput
 
 
 @pytest.fixture

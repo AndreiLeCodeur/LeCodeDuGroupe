@@ -14,7 +14,7 @@ if not MAPS:
 @pytest.mark.parametrize("map_path", MAPS, ids=lambda path: path.as_posix())
 def test_distributed_map_can_be_won(map_path):
     scenario_path = Path("scenarios") / map_path.relative_to("levels")
-    # TODO: load map_path with the real Level.load(str(map_path)).
-    # Call play_scenario(level, scenario_path), which returns the final state.
-    # Assert that state["status"] == "won" and state["message"] == "Victory!".
-    pytest.fail("TODO: load the real map, run its scenario and check victory")
+    level = Level.load(str(map_path))
+    state = play_scenario(level, scenario_path)
+    assert state["status"] == "won", f"{scenario_path} does not win {map_path}: {state['message']!r}"
+    assert state["message"] == "Victory!"
