@@ -41,6 +41,16 @@ uv run python -m pytest -q
 The command exits with status 0 when every test passes and non-zero otherwise.
 Tests need no window, keyboard or network.
 
+Ruff performs static analysis before pytest. From the repository root, run:
+
+```sh
+uv run ruff check gridworld tests
+```
+
+Ruff reads Python source and can report undefined names, unused imports and
+unused local variables even when the affected code is never executed. Tests
+verify the game's behavior by running the code and its scenarios.
+
 Shared fixtures live in [`tests/conftest.py`](tests/conftest.py) and are
 created fresh for each test:
 

@@ -19,5 +19,7 @@ jobs:
           python-version: "3.12"
       - name: Install locked dependencies
         run: uv sync --locked
+      - name: Check Python code with Ruff
+        run: uv run ruff check gridworld tests
       - name: Run all game tests
         run: uv run python -m pytest -q
