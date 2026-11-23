@@ -1,0 +1,4 @@
+# Insert this step in the existing tests job, after installation, before pytest.
+- name: Check Python code with Ruff
+  # TODO: replace this deliberate failure with the local Ruff command.
+  run: python -c "raise SystemExit('Complete the Ruff command')"
