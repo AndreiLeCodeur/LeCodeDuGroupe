@@ -141,7 +141,3 @@ class Engine:
                 break
             self.apply_action(action)
             self.render(self.get_state())
-
-
-def next_turn(turn):
-    return turn + 1
