@@ -1,5 +1,5 @@
 """Complete the two public methods; transport and prompts are supplied."""
-from gridworld.llm_support import GENERATION_PROMPT, JUDGE_PROMPT, llm_json
+from gridworld.llm_support import llm_json
 
 
 class Sphinx:

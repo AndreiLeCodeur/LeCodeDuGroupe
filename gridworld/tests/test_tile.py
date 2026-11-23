@@ -1,4 +1,3 @@
-import pytest
 from gridworld.models.tile import Tile
 
 # On teste ici si les dalles sont bien praticables

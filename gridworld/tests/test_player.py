@@ -1,4 +1,3 @@
-import pytest
 from gridworld.models.player import Player
 
 def test_player_independence(level_fixture):

@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 
 # Ajuste cet import selon le nom exact de ton fichier et de ta classe

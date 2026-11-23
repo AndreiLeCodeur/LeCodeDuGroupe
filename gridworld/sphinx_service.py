@@ -9,7 +9,6 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 from uuid import uuid4
 
-from flask import request
 
 
 DEFAULT_URL = "http://127.0.0.1:11434"
