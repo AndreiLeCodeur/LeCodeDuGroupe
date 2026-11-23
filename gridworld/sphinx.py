@@ -1,5 +1,5 @@
 """Complete the two public methods; transport and prompts are supplied."""
-from gridworld.llm_support import llm_json
+from gridworld.llm_support import GENERATION_PROMPT, JUDGE_PROMPT, llm_json
 
 
 class Sphinx:
@@ -10,17 +10,25 @@ class Sphinx:
 
     def get_question(self) -> str:
         """Generate and cache one riddle; return only its public question."""
-        # TODO: if riddle is None, use ask(GENERATION_PROMPT, {}, "riddle").
-        # Keep the validated dictionary, including its private expected_answer.
-        # Return the cached question on every call.
-        raise NotImplementedError("Complete Sphinx.get_question")
+        if self.riddle is None:
+            # The validated dictionary keeps the private expected_answer here.
+            self.riddle = self.ask(GENERATION_PROMPT, {}, "riddle")
+        return self.riddle["question"]
 
     def answer(self, player_text: str) -> dict:
         """Judge an answer, remember a failed attempt, or clear history on success."""
-        # TODO: ensure a riddle exists by calling get_question().
-        # Build data with question, expected_answer, player_answer and history.
-        # Use ask(JUDGE_PROMPT, data, "verdict").
-        # If correct: force message to "Correct!" and clear history.
-        # Otherwise append {"answer": player_text, "hint": result["message"]}.
-        # Return the verdict. Never modify the engine here.
-        raise NotImplementedError("Complete Sphinx.answer")
+        self.get_question()
+        data = {
+            "question": self.riddle["question"],
+            "expected_answer": self.riddle["expected_answer"],
+            "player_answer": player_text,
+            # A copy, so a later append does not change what was sent.
+            "history": list(self.history),
+        }
+        result = self.ask(JUDGE_PROMPT, data, "verdict")
+        if result["correct"]:
+            result["message"] = "Correct!"
+            self.history.clear()
+        else:
+            self.history.append({"answer": player_text, "hint": result["message"]})
+        return result
