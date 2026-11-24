@@ -3,14 +3,19 @@
 
 class Invincibility:
     def __init__(self):
-        raise NotImplementedError("PR 2: start at zero")
+        self._remaining = 0
 
     @property
     def remaining(self) -> int:
-        raise NotImplementedError("PR 2")
+        return self._remaining
 
     def activate(self, turns: int = 5) -> None:
-        raise NotImplementedError("PR 2: replace duration; reject negative values")
+        """Replace the duration (never add to it); reject negative values."""
+        if turns < 0:
+            raise ValueError("turns must not be negative")
+        self._remaining = turns
 
     def tick(self) -> None:
-        raise NotImplementedError("PR 2: decrement, never below zero")
+        """Remove one phase, never going below zero."""
+        if self._remaining > 0:
+            self._remaining -= 1
