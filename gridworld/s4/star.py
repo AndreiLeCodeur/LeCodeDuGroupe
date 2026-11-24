@@ -1,22 +1,41 @@
 """PR 2: independent class; do not inherit BaseEnemy."""
-from gridworld.s4.contracts import Position, RandomSource, WorldView
 from gridworld.contracts import EntityState
+from gridworld.s4.contracts import Position, RandomSource, WorldView
 
 
 class Star:
     kind = "star"
 
     def __init__(self, actor_id: str, x: int, y: int):
-        raise NotImplementedError("PR 2: identity, position, visible and collected flags")
+        self.id = actor_id
+        self.x = x
+        self.y = y
+        self.visible = True
+        self.collected = False
 
     def get_position(self) -> Position:
-        raise NotImplementedError("PR 2")
+        return (self.x, self.y)
 
     def update(self, world: WorldView, rng: RandomSource) -> None:
-        raise NotImplementedError("PR 2: toggle with probability 1/2, unless collected")
+        if self.collected:
+            return
+        if rng.random() < 0.5:  # strict: 0.5 does not toggle
+            self.visible = not self.visible
 
     def to_state(self) -> EntityState | None:
-        raise NotImplementedError("PR 2: visible public state or None")
+        if not self.visible:
+            return None
+        return {
+            "id": self.id,
+            "kind": self.kind,
+            "x": self.x,
+            "y": self.y,
+            "appearance": "star",
+        }
 
     def collect(self) -> bool:
-        raise NotImplementedError("PR 2: collect once, only when visible")
+        if not self.visible or self.collected:
+            return False
+        self.collected = True
+        self.visible = False
+        return True
