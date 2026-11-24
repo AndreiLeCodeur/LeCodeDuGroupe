@@ -1,0 +1,13 @@
+from gridworld.s4.factory import create_actor
+from testing.s4_fakes import recording_constructor
+
+
+def test_factory_passes_arguments_without_real_enemy_classes():
+    calls = []
+    constructors = {"horizontal": recording_constructor(calls)}
+    data = {"type": "horizontal", "id": "h-1", "x": 2, "y": 3}
+    first = create_actor(data, constructors)
+    second = create_actor(data, constructors)
+    assert calls == [("h-1", 2, 3), ("h-1", 2, 3)]
+    assert first is not second
+    assert first.get_position() == (2, 3)

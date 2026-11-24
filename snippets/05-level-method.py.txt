@@ -1,0 +1,4 @@
+# Add this method INSIDE your existing Level class, not in a second Level class.
+# Store an independent copy of data.get("actors", []) in __init__ first.
+def get_actor_specs(self) -> list[dict]:
+    raise NotImplementedError("S4-05: return an independent copy of actor descriptions")

@@ -13,6 +13,7 @@ from base64 import b64decode
 from copy import deepcopy
 from io import BytesIO
 import json
+import math
 import os
 from pathlib import Path
 
@@ -70,6 +71,27 @@ class PygameRender:
         self._screen.blit(font.render(text, True, color), position)
 
     def _sprite(self, appearance, position):
+        if appearance == "player.invincible":
+            self._sprite("player", position)
+            pygame.draw.circle(self._screen, (255, 223, 75),
+                               (position[0] + 24, position[1] + 24), 23, 3)
+            return
+        colors = {"enemy.horizontal": (239, 112, 94), "enemy.vertical": (88, 189, 225),
+                  "enemy.chaser": (182, 134, 236), "actor.fake": (97, 207, 157),
+                  "sphinx": (220, 180, 85)}
+        if appearance in colors:
+            rect = pygame.Rect(position[0] + 7, position[1] + 7, 34, 36)
+            pygame.draw.rect(self._screen, colors[appearance], rect, border_radius=12)
+            label = {"enemy.horizontal": "H", "enemy.vertical": "V", "enemy.chaser": "C",
+                     "actor.fake": "F", "sphinx": "S"}[appearance]
+            self._text(label, (position[0] + 17, position[1] + 14), (20, 30, 40))
+            return
+        if appearance == "star":
+            points = [(position[0] + 24 + (21 if i % 2 == 0 else 9) * math.sin(i * math.pi / 5),
+                       position[1] + 24 - (21 if i % 2 == 0 else 9) * math.cos(i * math.pi / 5))
+                      for i in range(10)]
+            pygame.draw.polygon(self._screen, (255, 218, 65), points)
+            return
         image = self._sprites.get(appearance)
         if image is not None:
             self._screen.blit(image, position)
@@ -102,7 +124,11 @@ class PygameRender:
                     self._sprite(appearance, position)
         for entity in state["entities"]:
             self._sprite(entity["appearance"], (left + entity["x"] * 48, top + entity["y"] * 48))
-        self._text(state["message"], (24, top + height * 48 + 12), (246, 207, 112))
+        remaining = state.get("extras", {}).get("invincible_turns", 0)
+        message = state["message"]
+        if remaining:
+            message = f"Invincible: {remaining} turns | {message}"
+        self._text(message, (24, top + height * 48 + 12), (246, 207, 112))
         self._text("Arrows / ZQSD · Space: wait · Escape: quit", (24, size[1] - 28), small=True)
         pygame.display.flip()
 

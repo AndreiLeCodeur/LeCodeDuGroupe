@@ -1,0 +1,34 @@
+from gridworld.controllers.controller import Controller
+from gridworld.engine import Engine
+from gridworld.models.level import Level
+
+
+class NoInput:
+    def read_key(self):
+        raise AssertionError("The test calls apply_action directly")
+
+
+class NoView:
+    def start(self):
+        pass
+
+    def update_render(self, state):
+        raise AssertionError("No rendering is needed in this test")
+
+    def close(self):
+        pass
+
+
+def test_s4_map_can_still_be_won():
+    engine = Engine(Level.load("levels/s4-room.json"), Controller(NoInput()), NoView())
+    assert len(engine.actors) == 4
+    before = engine.get_state()
+    assert engine.get_state() == before  # Reading never advances a turn.
+    for _ in range(6):
+        engine.apply_action("east")
+    state = engine.get_state()
+    assert state["status"] == "won"
+    assert state["turn"] == 6
+    assert state["entities"][-1]["id"] == "player-1"
+    engine.apply_action("wait")
+    assert engine.get_state() == state

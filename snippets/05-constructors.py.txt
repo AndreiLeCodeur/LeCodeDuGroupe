@@ -1,0 +1,10 @@
+# Supplied mapping for Engine.__init__, after S4-01 to S4-04 are complete.
+from gridworld.s4.enemies import ChaserEnemy, HorizontalEnemy, VerticalEnemy
+from gridworld.s4.star import Star
+
+constructors = {
+    "horizontal": HorizontalEnemy,
+    "vertical": VerticalEnemy,
+    "chaser": ChaserEnemy,
+    "star": Star,
+}
