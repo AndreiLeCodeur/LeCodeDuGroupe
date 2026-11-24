@@ -1,0 +1,15 @@
+from gridworld.s4.enemies import HorizontalEnemy
+from testing.s4_fakes import FakeWorld, FixedRandom
+from testing.s4_reference import legacy_trace
+
+
+def test_horizontal_preserves_the_supplied_behavior():
+    expected = legacy_trace("horizontal", "h-1", 3, 2, FakeWorld(width=5), 5)
+    actor = HorizontalEnemy("h-1", 3, 2)
+    world, rng = FakeWorld(width=5), FixedRandom()
+    actual = []
+    for _ in range(5):
+        actor.update(world, rng)
+        actual.append(actor.to_state())
+    assert actual == expected
+    assert [state["x"] for state in actual] == [3, 2, 1, 1, 2]

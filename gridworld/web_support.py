@@ -185,7 +185,7 @@ def launch(create_app):
     from gridworld.controllers.terminal_input import TerminalInput
     from gridworld.engine import Engine
     from gridworld.models.level import Level
-    from gridworld.views.bash_render import BashRender
+    from gridworld.views.s4_bash_render import S4BashRender as BashRender
 
     parser = argparse.ArgumentParser(description="Run the supplied browser adapter")
     parser.add_argument("--level", default="levels/n0.json")

@@ -1,0 +1,16 @@
+from gridworld.s4.star import Star
+from testing.s4_fakes import FakeWorld, FixedRandom
+
+
+def test_hidden_star_returns_but_collected_star_does_not():
+    star = Star("star-1", 2, 2)
+    world, rng = FakeWorld(), FixedRandom(0.25)
+    star.update(world, rng)
+    assert star.to_state() is None
+    assert star.collect() is False
+    star.update(world, rng)
+    assert star.to_state()["appearance"] == "star"
+    assert star.collect() is True
+    star.update(world, rng)
+    assert star.to_state() is None
+    assert star.collect() is False

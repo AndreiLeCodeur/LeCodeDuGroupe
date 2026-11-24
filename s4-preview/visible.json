@@ -1,0 +1,136 @@
+{
+  "level": {
+    "id": "S4 preview",
+    "width": 9,
+    "height": 7,
+    "tiles": [
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "wall"
+      ],
+      [
+        "wall",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "floor",
+        "exit",
+        "wall"
+      ],
+      [
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall"
+      ]
+    ]
+  },
+  "entities": [
+    {
+      "id": "enemy-0",
+      "kind": "enemy",
+      "x": 2,
+      "y": 2,
+      "appearance": "enemy.horizontal"
+    },
+    {
+      "id": "enemy-1",
+      "kind": "enemy",
+      "x": 4,
+      "y": 2,
+      "appearance": "enemy.vertical"
+    },
+    {
+      "id": "enemy-2",
+      "kind": "enemy",
+      "x": 6,
+      "y": 2,
+      "appearance": "enemy.chaser"
+    },
+    {
+      "id": "fake",
+      "kind": "enemy",
+      "x": 2,
+      "y": 4,
+      "appearance": "actor.fake"
+    },
+    {
+      "id": "star",
+      "kind": "star",
+      "x": 4,
+      "y": 4,
+      "appearance": "star"
+    },
+    {
+      "id": "player-1",
+      "kind": "player",
+      "x": 1,
+      "y": 1,
+      "appearance": "player"
+    }
+  ],
+  "player_id": "player-1",
+  "status": "playing",
+  "turn": 0,
+  "message": "S4 appearance preview",
+  "interaction": null,
+  "extras": {}
+}

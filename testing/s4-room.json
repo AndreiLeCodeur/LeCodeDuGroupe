@@ -1,0 +1,21 @@
+{
+  "id": "s4-room",
+  "grid": [
+    "#########",
+    "#.......#",
+    "###.###.#",
+    "#...#...#",
+    "#.#.#.#.#",
+    "#...#...#",
+    "#########"
+  ],
+  "start": {"x": 1, "y": 1},
+  "exit": {"x": 7, "y": 1},
+  "sphinx": false,
+  "actors": [
+    {"type": "horizontal", "id": "enemy-h", "x": 2, "y": 3},
+    {"type": "vertical", "id": "enemy-v", "x": 7, "y": 3},
+    {"type": "chaser", "id": "enemy-c", "x": 5, "y": 5},
+    {"type": "star", "id": "star-1", "x": 2, "y": 1}
+  ]
+}

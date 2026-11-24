@@ -1,0 +1,11 @@
+from gridworld.s4.invincibility import Invincibility
+
+
+def test_effect_counts_phases_and_stops_at_zero():
+    effect = Invincibility()
+    assert effect.remaining == 0
+    effect.activate(5)
+    assert effect.remaining == 5
+    for remaining in [4, 3, 2, 1, 0, 0]:
+        effect.tick()
+        assert effect.remaining == remaining

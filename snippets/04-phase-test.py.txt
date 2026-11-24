@@ -1,0 +1,26 @@
+from gridworld.s4.turn_system import advance_phase, collect_at_player
+from testing.s4_fakes import FakeActor, FakeInvincibility, FakeWorld, FixedRandom
+
+
+def test_last_protected_phase_eliminates_an_enemy_that_moves_into_player():
+    enemy = FakeActor("e-1", 2, 2, delta=(1, 0))
+    actors = [enemy]
+    world = FakeWorld(player=(3, 2))
+    effect = FakeInvincibility(remaining=1)
+    result = advance_phase(actors, world, effect, FixedRandom())
+    assert result["status"] == "playing"
+    assert result["actors"] is actors
+    assert actors == []
+    assert enemy.calls == 1
+    assert effect.remaining == 0
+
+
+def test_collect_only_once():
+    star = FakeActor("star-1", 2, 2, kind="star")
+    effect = FakeInvincibility()
+    world = FakeWorld(player=(2, 2))
+    collect_at_player([star], world, effect)
+    assert effect.remaining == 5
+    effect.tick()
+    collect_at_player([star], world, effect)
+    assert effect.remaining == 4

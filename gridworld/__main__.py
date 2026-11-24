@@ -6,7 +6,7 @@ from gridworld.engine import Engine
 from gridworld.controllers.controller import Controller
 from gridworld.controllers.terminal_input import TerminalInput
 from gridworld.controllers.pygame_input import PygameInput
-from gridworld.views.bash_render import BashRender #voir mael pour bashrender
+from gridworld.views.s4_bash_render import S4BashRender as BashRender #voir mael pour bashrender
 from gridworld.views.pygame_render import PygameRender
 
 def main() -> None:
