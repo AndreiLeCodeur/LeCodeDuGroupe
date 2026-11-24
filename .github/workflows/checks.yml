@@ -23,3 +23,23 @@ jobs:
         run: uv run ruff check gridworld tests
       - name: Run all game tests
         run: uv run python -m pytest -q
+
+  delivery:
+    needs: tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.11.16"
+          python-version: "3.12"
+      - name: Build verified archive
+        run: uv run python scripts/build_archive.py
+      - name: Upload archive artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gridworld-${{ github.sha }}
+          path: dist/gridworld-${{ github.sha }}.zip
+          retention-days: 7
