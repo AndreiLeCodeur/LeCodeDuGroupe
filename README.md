@@ -129,6 +129,23 @@ Cette commande exécute la suite de tests sans saisie clavier interactive, sans 
 - Vérification exécutée sur push et pull request (branche finale actuelle : `dev`).
 - Revue effectuée et résultat de test vert sur le **dernier état** avant fusion.
 - Archivage uniquement après succès d'un push sur la branche finale (`dev`).
+
+## Récupération et vérification de la livraison (S3-06)
+
+À chaque `push` vert sur la branche `dev` (Ruff et pytest réussis), GitHub Actions génère une archive ZIP du commit vérifié.
+
+1. Sur GitHub, ouvrir l'onglet **Actions**, cliquer sur le run vert correspondant au `push` sur `dev`, puis descendre dans la section **Artifacts**.
+2. Télécharger l'artefact `gridworld-<SHA>` (conservé 7 jours).
+3. Extraire le ZIP téléchargé depuis GitHub, puis extraire le fichier `gridworld-<SHA>.zip` qui se trouve à l'intérieur dans un **nouveau dossier vide**.
+4. Ouvrir `REVISION.txt` et vérifier que le SHA indiqué correspond exactement au commit du run GitHub.
+5. Depuis le dossier extrait (celui contenant `pyproject.toml`), lancer les commandes suivantes dans un terminal :
+
+```bash
+uv sync --locked
+uv run ruff check gridworld tests
+uv run python -m pytest -q
+uv run python -m gridworld --render terminal --level levels/n0.json
+
 ## Contributors
 
 Andrei Glavan
