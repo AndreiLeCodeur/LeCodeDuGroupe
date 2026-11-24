@@ -1,7 +1,4 @@
 """Student entry point: uv run python -m gridworld --render terminal|pygame."""
-# Erreur pour tester S3-05
-import os 
-
 
 import argparse
 from gridworld.models.level import Level 
